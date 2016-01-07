@@ -1,17 +1,17 @@
 post '/comment' do
-	comment = current_user.comments.new(desc: params[:comments][:desc], propertie_id: params[:comments][:properties_id])
+
+	comment = current_user.comments.new(desc: params[:comments][:desc], property_id: params[:comments][:property_id])
 	# @answer = Answer.where(property_id: params[:id])
 	comment.save
-	redirect to ("/property/#{comment.propertie_id}")
+	redirect to ("/property/#{comment.property_id}")
 end
 
 post '/edit/comment' do
-	byebug
 	if
-		comment =Comment.find_by(propertie_id: params[:comments][:propertie_id], id: params[:comments][:id], user_id: params[:comments][:user_id] )
+		comment =Comment.find_by(property_id: params[:comments][:property_id], id: params[:comments][:id], user_id: params[:comments][:user_id] )
 	  	comment.update(params[:comments])
 		comment.save
-		redirect to ("/property/#{comment.propertie_id}")
+		redirect to ("/property/#{comment.property_id}")
 	else 
 		return "not owner of this comment"
 	end
@@ -21,7 +21,7 @@ post '/delete/comment' do
 	if 
 		comment = Comment.find_by(params[:comment])
 		comment.destroy
-		redirect to ("/property/#{comment.propertie_id}")
+		redirect to ("/property/#{comment.property_id}")
 	else 
 		return "not owner of this property"
 	end

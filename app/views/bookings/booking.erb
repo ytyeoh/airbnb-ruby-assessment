@@ -1,6 +1,7 @@
-<h1><%= @property.title%></h1>
+<h1>Room Type:<%= @property.title%></h1>
 <p>Descrption:<%= @property.desc%></p>
 <p>RM<%= @property.price%></p>
+<p>Owner: <%=@property.user.email%></p>
 
 <% if a=Booking.own?(params[:id], current_user.id)%>
 	<form  action = "/booking" method="post" >
@@ -11,10 +12,15 @@
 		Guest:
 		<input type="number" type="select" name="booking[guests]" min="1" max="5">
 
-		<input type="hidden" name="booking[propertie_id]" value="<%= @property.id %>">
+		<input type="hidden" name="booking[property_id]" value="<%= @property.id %>">
 		<button type="submit" >Booking Now!</button>
 	</form>
 <% else %>
+<p>Check In Time: <%= @booking.check_in %></p>
+<p>Check Out Time: <%= @booking.check_out %></p>
+<p>Guest: <%=@booking.guests%></p>
+
+
 	<form  action = "/booking/edit" method="post" >
 		Check in:
 		<input type="text" name="booking[check_in]" value="<%= @booking.check_in %>" >
@@ -22,8 +28,9 @@
 		<input type="text" name="booking[check_out]" value="<%= @booking.check_out %>">
 		Guest:
 		<input type="number" type="select" name="booking[guests]" min="1" max="5" value="<%=@booking.guests%>">
+		<input type="hidden"  name="booking[id]" value="<%=@booking.id%>">
 
-		<input type="hidden" name="booking[propertie_id]" value="<%=@property.id%>">
+		<input type="hidden" name="booking[property_id]" value="<%=@property.id%>">
 		<button type="submit" >Edit</button>
 	</form>
 	<form method="post" action="/delete/booking">

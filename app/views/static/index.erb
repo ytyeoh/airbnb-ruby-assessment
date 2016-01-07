@@ -6,9 +6,10 @@
 		<button type="submit" >Create property</button>
 	</form>
 		<% @property.each do |p|  %>
-			<a href="/property/<%= p.id %>"><%= p.title %></a>
-			<h6><%= p.price %></h6>
-			<h5><%= p.desc %></h5>		
+			Room:<a href="/property/<%= p.id %>"><%= p.title %></a>
+			<h6>Price: RM<%= p.price %></h6>
+			<h5>Description:<%= p.desc %></h5>	
+			<h5>By: <%= p.user.email %></h5>	
 		<hr>
 		<%end%>
 			

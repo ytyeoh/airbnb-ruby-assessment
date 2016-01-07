@@ -1,10 +1,11 @@
 <h1><%= @property.title%></h1>
 <p>Description:<%= @property.desc%></p>
 <p>RM<%= @property.price%></p>
+<p>Owner: <%=@property.user.email%></p>
 
 
 
-
+<% if current_user.id == @property.user_id %>
 <form  action = "/edit_property" method="post" >
 	<input type="text" name="property[title]"  value ="<%= @property.title%>"placeholder="Title of property">
 	<input type="text" name="property[desc]" value ="<%= @property.desc%>" placeholder="Description of your property">
@@ -18,6 +19,7 @@
 	<input type="hidden" name="property[user_id]" value="<%=current_user.id%>">
 	<button type="submit"  value= "<%=@property.id%>" name = "property[id]">Delete Post</button>
 </form>
+<%end%>
 
 	<% if current_user.id != @property.user_id %>
 
@@ -27,26 +29,30 @@
 	<%end%>
 
 <hr>
-<% @comment.each do |c|%>
-		<h3>comment:</h3>
-		<p><%= c.desc %></p>
-			<form  action = "/edit/comment" method="post" >
-		<input type="text" name="comments[desc]"  placeholder="edit comment">
-		<input type="hidden" name="comments[user_id]" value="<%=current_user.id%>">
-		<input type="hidden" name="comments[propertie_id]" value="<%=@property.id%>">
-		<input type="hidden" name="comments[id]" value="<%=c.id%>">
-		<button type="submit" >Edit Comment</button>
-		</form>
-		<form method="post" action="/delete/comment">
-			<input type="hidden" name="comment[user_id]" value="<%=current_user.id%>">
-			<button type="submit"  value= "<%=c.id%>" name = "comment[id]">Delete Commentt</button>
-		</form>
+<% unless @comments %>
 
-<%end%>
+	<% @comment.each do |c|%>
+			<h3>comment:</h3>
+			<p><%= c.desc %></p>
+			<p>BY: <%=c.user.email%></p>
+			<form  action = "/edit/comment" method="post" >
+				<input type="text" name="comments[desc]"  placeholder="edit comment">
+				<input type="hidden" name="comments[user_id]" value="<%=current_user.id%>">
+				<input type="hidden" name="comments[property_id]" value="<%=@property.id%>">
+				<input type="hidden" name="comments[id]" value="<%=c.id%>">
+				<button type="submit" >Edit Comment</button>
+			</form>
+			<form method="post" action="/delete/comment">
+				<input type="hidden" name="comment[user_id]" value="<%=current_user.id%>">
+				<button type="submit"  value= "<%=c.id%>" name = "comment[id]">Delete Commentt</button>
+			</form>
+
+	<%end%>
+<% end %>
 
 	<form  action = "/comment" method="post" >
 		<input type="text" name="comments[desc]" placeholder="Put your comment">
-		<input type="hidden" name="comments[properties_id]" value="<%=@property.id%>">
+		<input type="hidden" name="comments[property_id]" value="<%=@property.id%>">
 		<button type="submit" >Comment</button>
 	</form>
 

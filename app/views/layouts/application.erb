@@ -3,6 +3,11 @@
 		<title>Sinatra Framework</title>
 	</head>
 	<body>
+		<a href="/"> Home </a>&nbsp;&nbsp;
+
+		<% if !current_user.nil? and !current_user.bookings.nil? %>
+		<a href ="/booking/show/<%= current_user.id %>">Booking Status</a>
+		<%end%>
 		<%= yield %>
 	</body>
 </html>
