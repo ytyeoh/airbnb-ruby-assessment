@@ -1,9 +1,14 @@
-<% @booking.each do |p|  %>
-	<p>Room: <%= p.property.title %></p>
-	<p>Room Description: <%= p.property.desc %></p>
-	<p>Check In Time: <%= p.check_in %></p>
-	<p>Check Out Time: <%= p.check_out %></p>
-	<p>Guests: <%= p.guests %></p>
-	<hr>
-<% end %>
+
+<%if @booking.empty?  %>
+	<p>No booking</p>
 	
+<%else%>
+<% @booking.each do |p|  %>
+		<p>Room: <%= p.property.title %></p>
+		<p>Room Description: <%= p.property.desc %></p>
+		<p>Check In Time: <%= p.check_in %></p>
+		<p>Check Out Time: <%= p.check_out %></p>
+		<p>Guests: <%= p.guests %></p>
+		<hr>
+		<% end %>
+<% end%>	

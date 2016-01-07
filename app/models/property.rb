@@ -8,7 +8,9 @@ class Property < ActiveRecord::Base
 		Property.order(created_at: :desc)
 	end
 	def self.owner(user_id, id)
-		 Property.find_by(user_id: user_id, id: id)
+		Property.find_by(user_id: user_id, id: id)
 	end
 
 end
+
+

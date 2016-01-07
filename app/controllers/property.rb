@@ -19,6 +19,7 @@ end
 get '/property/:id' do
 
 	@property = Property.find_by(id: params[:id])
+
 	@comment = Comment.where(property_id: params[:id])
 	
 	# @answer = Answer.where(question_id: params[:id])

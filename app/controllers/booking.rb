@@ -14,7 +14,7 @@ get '/booking/show/:id' do
 end
 
 post '/booking' do
-byebug
+
 	# booking = current_user.bookings.new(desc: params[:comments][:desc], property_id: params[:comments][:propertys_id])
 	booking = current_user.bookings.new(params[:booking])
 	# @answer = Answer.where(property_id: params[:id])
