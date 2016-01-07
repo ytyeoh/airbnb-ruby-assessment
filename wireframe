@@ -1,0 +1,4 @@
+User can create account by email and password in user table,
+user CRUD propetties in propertie table
+user CRUD comment in comments table which link to proertie/user table
+user CRUD booking in booking table which linkti propertie/user table

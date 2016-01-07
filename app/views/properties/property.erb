@@ -1,0 +1,53 @@
+<h1><%= @property.title%></h1>
+<p>Description:<%= @property.desc%></p>
+<p>RM<%= @property.price%></p>
+
+
+
+
+<form  action = "/edit_property" method="post" >
+	<input type="text" name="property[title]"  value ="<%= @property.title%>"placeholder="Title of property">
+	<input type="text" name="property[desc]" value ="<%= @property.desc%>" placeholder="Description of your property">
+	<input type="integer" name="property[price]" value="<%= @property.price%>" placeholder="Price per night">
+	<input type="hidden" name="property[user_id]" value="<%=current_user.id%>">
+	<input type="hidden" name="property[id]" value="<%=@property.id%>">
+	<button type="submit" >edit property</button>
+</form>
+
+<form method="post" action="/delete/property">
+	<input type="hidden" name="property[user_id]" value="<%=current_user.id%>">
+	<button type="submit"  value= "<%=@property.id%>" name = "property[id]">Delete Post</button>
+</form>
+
+	<% if current_user.id != @property.user_id %>
+
+	<a href="/booking/<%=@property.id%>">Book Now!</a>
+	<%else%>
+	<p>cannot book own propertt</p>
+	<%end%>
+
+<hr>
+<% @comment.each do |c|%>
+		<h3>comment:</h3>
+		<p><%= c.desc %></p>
+			<form  action = "/edit/comment" method="post" >
+		<input type="text" name="comments[desc]"  placeholder="edit comment">
+		<input type="hidden" name="comments[user_id]" value="<%=current_user.id%>">
+		<input type="hidden" name="comments[propertie_id]" value="<%=@property.id%>">
+		<input type="hidden" name="comments[id]" value="<%=c.id%>">
+		<button type="submit" >Edit Comment</button>
+		</form>
+		<form method="post" action="/delete/comment">
+			<input type="hidden" name="comment[user_id]" value="<%=current_user.id%>">
+			<button type="submit"  value= "<%=c.id%>" name = "comment[id]">Delete Commentt</button>
+		</form>
+
+<%end%>
+
+	<form  action = "/comment" method="post" >
+		<input type="text" name="comments[desc]" placeholder="Put your comment">
+		<input type="hidden" name="comments[properties_id]" value="<%=@property.id%>">
+		<button type="submit" >Comment</button>
+	</form>
+
+

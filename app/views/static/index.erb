@@ -1,2 +1,39 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<% if current_user? %>
+	<form  action = "/property" method="post" >
+		<input type="text" name="property[title]" placeholder="Title of property">
+		<input type="text" name="property[desc]" placeholder="Description of your property">
+		<input type="integer" name="property[price]" placeholder="Price per night">
+		<button type="submit" >Create property</button>
+	</form>
+		<% @property.each do |p|  %>
+			<a href="/property/<%= p.id %>"><%= p.title %></a>
+			<h6><%= p.price %></h6>
+			<h5><%= p.desc %></h5>		
+		<hr>
+		<%end%>
+			
+
+<a href="/logout" role="button" >Log Out</a>
+
+	
+<%else%>
+
+
+	<form  action = "/signup" method="post" >
+		<h2>Sign up</h2>
+			<label for="email">Email address:</label>
+			<input type="email" name="user[email]" placeholder="Email">
+			<label for="password">Password:</label>
+			<input type="password" name="user[password]" placeholder="Password">
+			<label for="password_confirm">Password Confirm:</label>
+			<input type="password" placeholder="Password Confirmation" name="user[password_confirmation]">
+			<button type="submit">Sign Up</button>
+	</form>
+		<h2>login</h2>
+	<form  action = "/login" method="post">
+			<input type="email" name="user[email]" placeholder="Email">
+			<input type="password" name="user[password]" placeholder="Password">
+			<button type="submit">login</button>
+	</form>
+
+<%end%>

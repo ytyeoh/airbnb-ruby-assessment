@@ -29,7 +29,7 @@ The App should be doing the following:
 2. User is able to log into an account (sign in)
 3. User is able to log out from an account (sign out)
 
-### Properties
+### properties
 1. User is able to CREATE properties
 2. User is able to VIEW properties
 3. User is able to UPDATE properties

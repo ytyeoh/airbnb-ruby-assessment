@@ -1,0 +1,33 @@
+<h1><%= @property.title%></h1>
+<p>Descrption:<%= @property.desc%></p>
+<p>RM<%= @property.price%></p>
+
+<% if a=Booking.own?(params[:id], current_user.id)%>
+	<form  action = "/booking" method="post" >
+		Check in:
+		<input type="date" name="booking[check_in]"  >
+		Check out:
+		<input type="date" name="booking[check_out]" >
+		Guest:
+		<input type="number" type="select" name="booking[guests]" min="1" max="5">
+
+		<input type="hidden" name="booking[propertie_id]" value="<%= @property.id %>">
+		<button type="submit" >Booking Now!</button>
+	</form>
+<% else %>
+	<form  action = "/booking/edit" method="post" >
+		Check in:
+		<input type="text" name="booking[check_in]" value="<%= @booking.check_in %>" >
+		Check out:
+		<input type="text" name="booking[check_out]" value="<%= @booking.check_out %>">
+		Guest:
+		<input type="number" type="select" name="booking[guests]" min="1" max="5" value="<%=@booking.guests%>">
+
+		<input type="hidden" name="booking[propertie_id]" value="<%=@property.id%>">
+		<button type="submit" >Edit</button>
+	</form>
+	<form method="post" action="/delete/booking">
+		<input type="hidden" name="booking[user_id]" value="<%=current_user.id%>">
+		<button type="submit"  value= "<%=@booking.id%>" name = "booking[id]">Delete booking</button>
+	</form>
+<% end %>
